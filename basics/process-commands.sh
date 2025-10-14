@@ -9,3 +9,6 @@ ps -ef | grep "zsh"
 
 #prints processId with name containing zsh
 ps -ef |grep "zsh" | awk -F " " '{print$2}'
+
+#Print all postgress related PID and other details 
+ps -ef | grep "postgres" | awk -F" " '{print$2, $8, $9, $10}'

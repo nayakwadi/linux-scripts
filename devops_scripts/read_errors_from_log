@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# display error lines from log file "sample_Error_file.log"
+# Print only lines having ERROR keyword
+set -x
+set -e
+set -o
+
+cat sample_error_file.log | grep ERROR
