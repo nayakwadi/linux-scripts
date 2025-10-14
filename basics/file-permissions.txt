@@ -1,0 +1,84 @@
+Manage File/Folder permissions using rwx on User/Group/others
+chmod [options] <permissions> <file/directory>
+Where:
+• <permissions>: Specifies the permissions to be applied to the file.
+• <file/directory>: The file or directory whose permissions you want to change.
+
+Types of Permissions:
+In Linux, file permissions are defined in three categories:
+1. User (Owner) - The user who owns the file (denoted as u or sometimes the username).
+2. Group - The group that the file belongs to (denoted as g).
+3. Others (World) - Everyone else who is not the user or in the group (denoted as o).
+Each of these categories can have three types of permissions:
+• r: Read (permission to open and read the file).
+• w: Write (permission to modify the file).
+• x: Execute (permission to run the file if it is a program or script).
+
+Understanding chmod in Two Ways:
+1. Symbolic Mode:
+This mode uses letters (r, w, x) and operators (+, -, =) to modify permissions.
+• +: Adds the specified permissions.
+• -: Removes the specified permissions.
+• =: Sets the specified permissions, removing others.
+Examples:
+• Add execute permission to the owner:
+chmod u+x myscript.sh
+This adds the execute permission for the owner of the file.
+• Remove write permission for the group:
+chmod g-w myfile.txt
+This removes the write permission for the group.
+• Set the permissions for others to read-only:
+chmod o=r myfile.txt
+This sets the permissions for others to read-only, removing write or execute permissions.
+• Give read and write permissions to the user, group, and others:
+chmod a+rw myfile.txt
+This grants both read and write permissions to the user (u), group (g), and others (o).
+
+2. Numeric (Octal) Mode:
+In this mode, permissions are represented by a 3-digit number where each digit corresponds to a set of permissions:
+• 4 = read (r)
+• 2 = write (w)
+• 1 = execute (x)
+• 0 = no permission
+The three digits represent the permissions for: User (Owner) Group Others
+Each digit is the sum of the permissions:
+• r (read) = 4
+• w (write) = 2
+• x (execute) = 1
+Examples:
+• Give full permissions (read, write, execute) to the user, and read-only to group and others:
+chmod 744 myfile.txt
+	○ 7 = 4 + 2 + 1 (read, write, execute for the owner).
+	○ 4 = 4 (read for the group).
+	○ 4 = 4 (read for others).
+• Give read and write permissions to the user and group, and no permissions to others:
+chmod 660 myfile.txt
+	○ 6 = 4 + 2 (read and write for the owner).
+	○ 6 = 4 + 2 (read and write for the group).
+	○ 0 = 0 (no permissions for others).
+• Give full permissions (read, write, execute) to everyone:
+chmod 777 myfile.txt
+Combining chmod Options:
+You can also combine symbolic operations:
+• Add execute permissions for the user and group, but remove write permissions for others:
+chmod ug+x,o-w myscript.sh
+Checking Permissions with ls -l:
+After using chmod, you can verify the changes by running:
+ ls -l myfile.txt
+This will show the file's permissions in the format: -rwxr-xr--
+Here:
+• The first character (-) indicates whether it is a regular file (-), directory (d), or a symbolic link (l).
+• The next three characters (rwx) are the permissions for the user (owner).
+• The next three characters (r-x) are the permissions for the group.
+• The last three characters (r--) are the permissions for others.
+Common Use Cases:
+• Making a script executable:
+chmod +x myscript.sh
+• Giving full access to the owner and read-only access to others:
+chmod 744 myfile.txt
+• Allowing the group to write to the file, but not others:
+chmod g+w myfile.txt
+Summary:
+• chmod is used to modify the permissions of files and directories in Linux.
+• You can use symbolic mode (e.g., u+x) or numeric mode (e.g., 755) to set permissions.
+• Properly setting file permissions is essential for system security and ensuring that the right users have the right access to files.
