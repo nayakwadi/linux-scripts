@@ -54,7 +54,8 @@ get_cpu_usage() {
   cpu_idle=$(top -bn1 2>/dev/null | grep -i "cpu(s)" | sed "s/.*, *\([0-9.]*\)%* id.*/\1/")
   if [[ -n "$cpu_idle" ]]; then
     # Use bc or awk for arithmetic
-    cpu_usage=$(awk -v idle="$cpu_idle" 'BEGIN { printf "%.1f", 100 - idle }')
+    #cpu_usage=$(awk -v idle="$cpu_idle" 'BEGIN { printf "%.1f", 100 - idle }')
+    cpu_usage=$(echo "100 - $cpu_idle" | bc)
     echo "$cpu_usage"
     return 0
   fi
